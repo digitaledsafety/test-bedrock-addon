@@ -1,0 +1,24 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Hello World RP",
+    "description": "Resource pack for Hello World Addon",
+    "uuid": "ca9e1d08-5192-4e8c-8c47-7f0e8bc9f107",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 20, 0]
+  },
+  "modules": [
+    {
+      "description": "Resource pack modules",
+      "type": "resources",
+      "uuid": "821ec243-7404-488a-a82b-e54578e41061",
+      "version": [1, 0, 0]
+    }
+  ],
+  "dependencies": [
+    {
+      "uuid": "160463cc-8e6d-45b4-b777-6a72a251f870",
+      "version": [1, 0, 0]
+    }
+  ]
+}

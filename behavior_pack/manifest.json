@@ -1,0 +1,30 @@
+{
+  "format_version": 2,
+  "header": {
+    "name": "Hello World BP",
+    "description": "Behavior pack for Hello World Addon",
+    "uuid": "160463cc-8e6d-45b4-b777-6a72a251f870",
+    "version": [1, 0, 0],
+    "min_engine_version": [1, 20, 0]
+  },
+  "modules": [
+    {
+      "description": "Scripting module",
+      "type": "script",
+      "language": "javascript",
+      "uuid": "3a84749a-6a63-4ec4-a9d2-a12a9fa8d203",
+      "version": [1, 0, 0],
+      "entry": "scripts/main.js"
+    }
+  ],
+  "dependencies": [
+    {
+      "module_name": "@minecraft/server",
+      "version": "1.7.0"
+    },
+    {
+      "module_name": "@minecraft/server-gametest",
+      "version": "1.0.0-beta"
+    }
+  ]
+}

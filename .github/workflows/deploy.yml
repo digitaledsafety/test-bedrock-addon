@@ -1,0 +1,34 @@
+name: Build and Deploy Addon
+
+on:
+  push:
+    branches: [ "main", "master" ]
+  pull_request:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Use Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - run: node scripts/validate_manifests.js
+
+  build:
+    needs: validate
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' || github.event_name == 'workflow_dispatch'
+    steps:
+      - uses: actions/checkout@v4
+      - name: Create mcaddon file
+        run: |
+          zip -r hello_world.mcaddon behavior_pack resource_pack
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: hello_world_addon
+          path: hello_world.mcaddon
