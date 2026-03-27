@@ -1,0 +1,22 @@
+{
+  "format_version": "1.10.0",
+  "minecraft:client_entity": {
+    "description": {
+      "identifier": "custom:companion",
+      "materials": {
+        "default": "entity_alphatest"
+      },
+      "textures": {
+        "default": "textures/entity/companion"
+      },
+      "geometry": {
+        "default": "geometry.companion"
+      },
+      "render_controllers": [ "controller.render.companion" ],
+      "spawn_egg": {
+        "base_color": "#FF0000",
+        "overlay_color": "#00FF00"
+      }
+    }
+  }
+}
