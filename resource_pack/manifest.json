@@ -1,8 +1,8 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Hello World RP",
-    "description": "Resource pack for Hello World Addon",
+    "name": "Showcase RP",
+    "description": "Resource pack for Minecraft Full Featureset Showcase",
     "uuid": "ca9e1d08-5192-4e8c-8c47-7f0e8bc9f107",
     "version": [1, 0, 0],
     "min_engine_version": [1, 20, 0]

@@ -1,8 +1,8 @@
 {
   "format_version": 2,
   "header": {
-    "name": "Hello World BP",
-    "description": "Behavior pack for Hello World Addon",
+    "name": "Showcase BP",
+    "description": "Behavior pack for Minecraft Full Featureset Showcase",
     "uuid": "160463cc-8e6d-45b4-b777-6a72a251f870",
     "version": [1, 0, 0],
     "min_engine_version": [1, 20, 0]
@@ -21,6 +21,10 @@
     {
       "module_name": "@minecraft/server",
       "version": "1.7.0"
+    },
+    {
+      "module_name": "@minecraft/server-ui",
+      "version": "1.1.0"
     },
     {
       "module_name": "@minecraft/server-gametest",
