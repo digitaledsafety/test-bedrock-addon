@@ -1,31 +1,67 @@
 import os
+import urllib.request
+from PIL import Image
+import io
 
-def create_placeholder_png(path, color):
-    # This is a hack because we don't have PIL/ImageMagick
-    # A 1x1 PNG file with a single pixel of 'color'
-    # For now, I'll just create a text file that says it's a PNG
-    # Actually, I'll try to use a minimal base64 encoded PNG
+def download_and_process_icon(url, path, size):
+    print(f"Generating {path} from {url}...")
+    try:
+        # Minecraft icons often look better with NEAREST if they are small and pixelated,
+        # but since these are high-res source icons being downscaled to 16x16,
+        # LANCZOS might be too blurry. NEAREST or BOX might give a more "Minecraft" feel.
+        # However, LANCZOS is generally safer for downscaling.
 
-    # Red 1x1 PNG
-    if color == "red":
-        data = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDAT\x08\xd7c\xf8\xff\xff? \x05\xfe\x02\xfe\xdcD\x05\x00\x00\x00\x00IEND\xaeB`\x82'
-    # Blue 1x1 PNG
-    elif color == "blue":
-        data = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDAT\x08\xd7c\xff\xff\xff\x7f\x06\x03\x05\xfe\x01\xfe\x8e\x04\x05\x00\x00\x00\x00IEND\xaeB`\x82'
-    # Green 1x1 PNG
-    else:
-        data = b'\x89PNG\r\n\x1a\n\x00\x00\x00\rIHDR\x00\x00\x00\x01\x00\x00\x00\x01\x08\x02\x00\x00\x00\x90wS\xde\x00\x00\x00\x0cIDAT\x08\xd7c\x00\xff\x00\x00\x03\x00\x01\xfe\x10\x10\x01\x00\x00\x00\x00IEND\xaeB`\x82'
+        headers = {'User-Agent': 'Mozilla/5.0'}
+        req = urllib.request.Request(url, headers=headers)
+        with urllib.request.urlopen(req) as response:
+            data = response.read()
 
-    with open(path, "wb") as f:
-        f.write(data)
+        img = Image.open(io.BytesIO(data))
+        img = img.resize((size, size), Image.Resampling.LANCZOS)
 
-os.makedirs("resource_pack/textures/items", exist_ok=True)
-os.makedirs("resource_pack/textures/blocks", exist_ok=True)
-os.makedirs("resource_pack/textures/entity", exist_ok=True)
+        # Ensure directory exists
+        os.makedirs(os.path.dirname(path), exist_ok=True)
 
-create_placeholder_png("resource_pack/textures/items/ruby.png", "red")
-create_placeholder_png("resource_pack/textures/items/magic_wand.png", "blue")
-create_placeholder_png("resource_pack/textures/blocks/ruby_block.png", "red")
-create_placeholder_png("resource_pack/textures/entity/companion.png", "green")
+        img.save(path)
+        print(f"Successfully saved to {path}")
+    except Exception as e:
+        print(f"Error generating {path}: {e}")
 
-print("Placeholder assets generated.")
+# Define assets
+assets = [
+    {
+        "url": "https://img.icons8.com/ios-filled/100/FF0000/ruby.png",
+        "path": "resource_pack/textures/items/ruby.png",
+        "size": 16
+    },
+    {
+        "url": "https://img.icons8.com/ios-filled/100/0000FF/sparkling-diamond.png",
+        "path": "resource_pack/textures/items/magic_wand.png",
+        "size": 16
+    },
+    {
+        "url": "https://img.icons8.com/ios-filled/100/FF0000/box.png",
+        "path": "resource_pack/textures/blocks/ruby_block.png",
+        "size": 16
+    },
+    {
+        "url": "https://img.icons8.com/ios-filled/100/00FF00/bot.png",
+        "path": "resource_pack/textures/entity/companion.png",
+        "size": 16
+    },
+    {
+        "url": "https://img.icons8.com/ios-filled/128/8B4513/package.png",
+        "path": "resource_pack/pack_icon.png",
+        "size": 128
+    },
+    {
+        "url": "https://img.icons8.com/ios-filled/128/8B4513/package.png",
+        "path": "behavior_pack/pack_icon.png",
+        "size": 128
+    }
+]
+
+for asset in assets:
+    download_and_process_icon(asset["url"], asset["path"], asset["size"])
+
+print("All assets generated.")
