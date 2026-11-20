@@ -1,3 +1,5 @@
+> **No longer maintained.** This repository is no longer maintained. This was a test repo for the [Bedrock addon template](https://github.com/digitaledsafety/template-bedrock-addon). Active development now happens in the [foundation monorepo on GitLab](https://gitlab.com/desf-group/foundation).
+
 # Minecraft Hello World Addon Template
 
 This is a template for a Minecraft Bedrock Edition Addon. It includes a simple behavior pack that says "Hello World" to players when they join, and a basic resource pack.
